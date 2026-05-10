@@ -1,0 +1,154 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Nature Heals",
+    "theme_version": "2.0.0",
+    "theme_author": "Nature Heals",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "Page width",
+        "options": [
+          {
+            "value": "90rem",
+            "label": "Narrow"
+          },
+          {
+            "value": "110rem",
+            "label": "Wide"
+          }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Page margin",
+        "default": 24
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "default": "#4a7c59",
+        "label": "Primary Color"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_light",
+        "default": "#78a886",
+        "label": "Primary Light"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#faf6f0",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "foreground_color",
+        "default": "#2e3230",
+        "label": "Text / Foreground"
+      },
+      {
+        "type": "color",
+        "id": "color_tertiary",
+        "default": "#705c30",
+        "label": "Tertiary Accent"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "default": "#ffffff",
+        "label": "Surface (Cards)"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_warm",
+        "default": "#f5f1ea",
+        "label": "Surface Warm"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "label": "Border Radius",
+        "default": 12
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "heading_font",
+        "label": "Heading Font",
+        "options": [
+          {
+            "value": "Literata",
+            "label": "Literata"
+          },
+          {
+            "value": "Playfair Display",
+            "label": "Playfair Display"
+          },
+          {
+            "value": "Lora",
+            "label": "Lora"
+          }
+        ],
+        "default": "Literata"
+      },
+      {
+        "type": "select",
+        "id": "body_font",
+        "label": "Body Font",
+        "options": [
+          {
+            "value": "Nunito Sans",
+            "label": "Nunito Sans"
+          },
+          {
+            "value": "Inter",
+            "label": "Inter"
+          },
+          {
+            "value": "DM Sans",
+            "label": "DM Sans"
+          }
+        ],
+        "default": "Nunito Sans"
+      }
+    ]
+  }
+]

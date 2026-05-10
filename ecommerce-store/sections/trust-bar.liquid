@@ -1,0 +1,57 @@
+<section class="trust-bar full-width">
+  <div class="trust-bar-inner">
+    {% for block in section.blocks %}
+      <div class="trust-item animate-fade-in-up animate-delay-{{ forloop.index }}">
+        <div class="trust-icon">
+          <span class="material-symbols-outlined">{{ block.settings.icon }}</span>
+        </div>
+        <h4>{{ block.settings.title }}</h4>
+        <p>{{ block.settings.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Material Icon Name",
+          "default": "eco"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "100% Natural"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Plant-based ingredients"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon": "eco", "title": "100% Natural", "description": "Pure plant-based formula" } },
+        { "type": "trust_item", "settings": { "icon": "speed", "title": "Fast Absorbing", "description": "Quick penetrating relief" } },
+        { "type": "trust_item", "settings": { "icon": "cruelty_free", "title": "Cruelty Free", "description": "Never tested on animals" } },
+        { "type": "trust_item", "settings": { "icon": "front_hand", "title": "Handcrafted", "description": "Small batch artisan quality" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,136 @@
+<div class="cart-overlay" id="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
+
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2>Your Cart</h2>
+    <button onclick="closeCartDrawer()" aria-label="Close cart">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <div class="cart-drawer-items" id="cart-drawer-items">
+    <div class="cart-empty" id="cart-drawer-empty">
+      <span class="material-symbols-outlined" style="font-size:48px;color:var(--color-primary-light);opacity:0.5">shopping_bag</span>
+      <p>Your cart is empty</p>
+    </div>
+  </div>
+
+  <div class="cart-drawer-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cart-drawer-subtotal">$0.00</span>
+    </div>
+    <p class="cart-note">Taxes and shipping calculated at checkout.</p>
+    <a href="/checkout" class="btn-primary" style="width:100%">
+      Checkout
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  const cartDrawer = document.getElementById('cart-drawer');
+  const cartOverlay = document.getElementById('cart-drawer-overlay');
+  const cartItemsContainer = document.getElementById('cart-drawer-items');
+  const cartSubtotal = document.getElementById('cart-drawer-subtotal');
+  const cartEmpty = document.getElementById('cart-drawer-empty');
+  const cartCountBadges = document.querySelectorAll('.cart-count-badge');
+
+  function openCartDrawer() {
+    cartOverlay.classList.add('active');
+    cartDrawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    fetchCart();
+  }
+
+  function closeCartDrawer() {
+    cartOverlay.classList.remove('active');
+    cartDrawer.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function formatMoney(cents) {
+    return 'Rs.' + (cents / 100).toFixed(2);
+  }
+
+  async function fetchCart() {
+    try {
+      const response = await fetch(window.Shopify.routes.root + 'cart.js');
+      const cart = await response.json();
+
+      updateCartCount(cart.item_count);
+      cartSubtotal.textContent = formatMoney(cart.total_price);
+
+      // Clear items but keep empty element
+      cartItemsContainer.innerHTML = '';
+
+      if (cart.items.length === 0) {
+        cartItemsContainer.innerHTML = '<div class="cart-empty"><span class="material-symbols-outlined" style="font-size:48px;color:var(--color-primary-light);opacity:0.5">shopping_bag</span><p>Your cart is empty</p></div>';
+        return;
+      }
+
+      cart.items.forEach(item => {
+        const el = document.createElement('div');
+        el.className = 'cart-item';
+        el.innerHTML = `
+          ${item.image ? `<img src="${item.image}" alt="${item.title}" width="72" height="72">` : '<div style="width:72px;height:72px;background:#eae6de;border-radius:8px"></div>'}
+          <div class="cart-item-info">
+            <span class="cart-item-title">${item.product_title}</span>
+            ${item.variant_title && item.variant_title !== 'Default Title' ? `<span class="cart-item-variant">${item.variant_title}</span>` : ''}
+            <div class="cart-item-bottom">
+              <span class="cart-item-price">${formatMoney(item.line_price)}</span>
+              <div class="cart-item-qty">
+                <button onclick="changeItemQuantity('${item.key}', ${item.quantity - 1})" aria-label="Decrease">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeItemQuantity('${item.key}', ${item.quantity + 1})" aria-label="Increase">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+        cartItemsContainer.appendChild(el);
+      });
+    } catch (err) {
+      console.error('Cart fetch error:', err);
+    }
+  }
+
+  async function changeItemQuantity(key, quantity) {
+    await fetch(window.Shopify.routes.root + 'cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: key, quantity: quantity })
+    });
+    fetchCart();
+  }
+
+  function updateCartCount(count) {
+    cartCountBadges.forEach(badge => {
+      badge.textContent = count;
+      badge.classList.toggle('visually-hidden', count === 0);
+    });
+  }
+
+  // Intercept AJAX add-to-cart forms
+  document.addEventListener('submit', async (e) => {
+    if (e.target.hasAttribute('data-ajax-cart')) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined" style="animation:pulse 1s infinite">progress_activity</span> Adding...';
+      btn.disabled = true;
+
+      try {
+        await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          body: new FormData(e.target)
+        });
+        openCartDrawer();
+      } catch (err) {
+        console.error('Add to cart error:', err);
+      } finally {
+        btn.innerHTML = original;
+        btn.disabled = false;
+      }
+    }
+  });
+</script>

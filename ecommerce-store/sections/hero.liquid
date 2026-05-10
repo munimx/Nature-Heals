@@ -1,0 +1,91 @@
+<section class="hero full-width" style="margin-top: -72px;">
+  <div class="hero-bg">
+    {% if section.settings.hero_image != blank %}
+      <img src="{{ section.settings.hero_image | image_url: width: 1920 }}" alt="{{ section.settings.hero_image.alt | escape }}" loading="eager" fetchpriority="high">
+    {% else %}
+      <img src="{{ 'hero-bg.jpg' | asset_url }}" alt="Nature Heals herbal oil" loading="eager" fetchpriority="high">
+    {% endif %}
+  </div>
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+    <div class="hero-badge animate-fade-in-up">
+      <span class="badge badge-green">
+        <span class="material-symbols-outlined" style="font-size:14px">eco</span>
+        {{ section.settings.badge_text }}
+      </span>
+    </div>
+    
+    <h1 class="animate-fade-in-up animate-delay-1">
+      {{ section.settings.heading_line1 }}<br>
+      <em>{{ section.settings.heading_line2 }}</em>
+    </h1>
+    
+    <p class="hero-subtitle animate-fade-in-up animate-delay-2">
+      {{ section.settings.subtitle }}
+    </p>
+    
+    <div class="hero-cta animate-fade-in-up animate-delay-3">
+      {% if section.settings.cta_url != blank %}
+        <a href="{{ section.settings.cta_url }}" class="btn-primary">
+          {{ section.settings.cta_text }}
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "100% Natural & Organic"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading Line 1",
+      "default": "Nature's Answer"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading Line 2 (Accent)",
+      "default": "to Pain"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Handcrafted herbal relief oil, rooted in ancient wisdom. Soothe tired muscles and ease daily tension with the power of nature."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Primary Button Link"
+    },
+
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

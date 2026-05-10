@@ -1,0 +1,45 @@
+<section class="benefits full-width">
+  <div class="benefits-header">
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.subheading }}</p>
+  </div>
+  <div class="benefits-grid">
+    {% for block in section.blocks %}
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <span class="material-symbols-outlined">{{ block.settings.icon }}</span>
+        </div>
+        <h4>{{ block.settings.title }}</h4>
+        <p>{{ block.settings.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits Grid",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why Nature Heals?" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Crafted with care, backed by nature." }
+  ],
+  "blocks": [{
+    "type": "benefit",
+    "name": "Benefit",
+    "settings": [
+      { "type": "text", "id": "icon", "label": "Icon", "default": "eco" },
+      { "type": "text", "id": "title", "label": "Title", "default": "100% Natural" },
+      { "type": "textarea", "id": "description", "label": "Description", "default": "Pure plant-based ingredients, no chemicals or synthetics." }
+    ]
+  }],
+  "presets": [{
+    "name": "Benefits Grid",
+    "blocks": [
+      { "type": "benefit", "settings": { "icon": "eco", "title": "100% Natural", "description": "Pure plant-based ingredients sourced from organic farms." } },
+      { "type": "benefit", "settings": { "icon": "spa", "title": "Fast Relief", "description": "Deeply penetrating formula absorbs quickly into skin." } },
+      { "type": "benefit", "settings": { "icon": "cruelty_free", "title": "Cruelty Free", "description": "Never tested on animals. Vegan and ethically produced." } },
+      { "type": "benefit", "settings": { "icon": "local_florist", "title": "Earthy Scent", "description": "Warming arnica and cooling peppermint aroma." } }
+    ]
+  }]
+}
+{% endschema %}

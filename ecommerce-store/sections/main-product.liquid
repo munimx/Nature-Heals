@@ -1,0 +1,72 @@
+<section class="product-page">
+  <div class="product-grid">
+    <!-- Gallery -->
+    <div class="product-gallery">
+      <img src="{{ 'product-hero.png' | asset_url }}" alt="{{ product.title | escape }}" loading="eager" style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+    </div>
+
+    <!-- Info -->
+    <div class="product-info">
+      <div>
+        <span class="badge badge-amber">{{ section.settings.badge_text }}</span>
+      </div>
+
+      <h1>{{ product.title }}</h1>
+      <p class="product-price">{{ product.price | money }}</p>
+      <div class="product-desc">{{ product.description }}</div>
+
+      <form method="post" action="/cart/add" data-ajax-cart="true">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <div class="atc-row" style="margin-bottom:1rem">
+          <div class="qty-selector">
+            <button type="button" onclick="this.nextElementSibling.stepDown()"><span class="material-symbols-outlined">remove</span></button>
+            <input type="number" id="Quantity" name="quantity" value="1" min="1">
+            <button type="button" onclick="this.previousElementSibling.stepUp()"><span class="material-symbols-outlined">add</span></button>
+          </div>
+          <button type="submit" class="btn-primary">Add to Cart</button>
+        </div>
+      </form>
+      <button class="btn-secondary" style="width:100%">Subscribe & Save 15%</button>
+
+      <div class="product-meta-grid">
+        <div class="meta-item">
+          <span class="material-symbols-outlined">eco</span>
+          <div><h4>100% Natural</h4><p>Plant-based ingredients</p></div>
+        </div>
+        <div class="meta-item">
+          <span class="material-symbols-outlined">spa</span>
+          <div><h4>Fast Relief</h4><p>Absorbs quickly</p></div>
+        </div>
+        <div class="meta-item">
+          <span class="material-symbols-outlined">cruelty_free</span>
+          <div><h4>Cruelty Free</h4><p>Never tested on animals</p></div>
+        </div>
+        <div class="meta-item">
+          <span class="material-symbols-outlined">local_florist</span>
+          <div><h4>Earthy Scent</h4><p>Arnica & peppermint</p></div>
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [
+    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "Best Seller" }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

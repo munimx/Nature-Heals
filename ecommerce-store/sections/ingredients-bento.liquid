@@ -1,0 +1,54 @@
+<section class="ingredients full-width">
+  <div class="ingredients-header">
+    <span class="badge badge-amber" style="margin-bottom:1rem;display:inline-flex">
+      <span class="material-symbols-outlined" style="font-size:14px">local_florist</span>
+      {{ section.settings.badge_text }}
+    </span>
+    <h2>{{ section.settings.heading }}</h2>
+  </div>
+  <div class="bento-grid">
+    {% for block in section.blocks %}
+      <div class="bento-item {% if block.settings.span_2 %}span-2{% endif %}">
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+        {% else %}
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#78a886,#4a7c59)"></div>
+        {% endif %}
+        <div class="bento-overlay"></div>
+        <div class="bento-text">
+          <h4>{{ block.settings.title }}</h4>
+          <p>{{ block.settings.description }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients Bento",
+  "settings": [
+    { "type": "text", "id": "badge_text", "label": "Badge", "default": "Pure Ingredients" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What's Inside" }
+  ],
+  "blocks": [{
+    "type": "ingredient",
+    "name": "Ingredient",
+    "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Arnica Montana" },
+      { "type": "text", "id": "description", "label": "Description", "default": "Anti-inflammatory powerhouse" },
+      { "type": "checkbox", "id": "span_2", "label": "Span 2 columns", "default": false }
+    ]
+  }],
+  "presets": [{
+    "name": "Ingredients Bento",
+    "blocks": [
+      { "type": "ingredient", "settings": { "title": "Arnica Montana", "description": "Anti-inflammatory healing from the mountains", "span_2": true } },
+      { "type": "ingredient", "settings": { "title": "Peppermint Oil", "description": "Cooling relief for sore muscles" } },
+      { "type": "ingredient", "settings": { "title": "Eucalyptus", "description": "Soothing warmth and clarity" } },
+      { "type": "ingredient", "settings": { "title": "Sweet Almond Oil", "description": "Deep moisture and gentle absorption", "span_2": true } }
+    ]
+  }]
+}
+{% endschema %}

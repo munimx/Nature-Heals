@@ -1,0 +1,20 @@
+{% style %}
+  :root {
+    --font-heading-family: '{{ settings.heading_font | default: "Literata" }}', serif;
+    --font-body-family: '{{ settings.body_font | default: "Nunito Sans" }}', sans-serif;
+
+    --page-width: {{ settings.max_page_width | default: '90rem' }};
+    --page-margin: {{ settings.min_page_margin | default: 24 }}px;
+
+    --color-primary: {{ settings.color_primary | default: '#4a7c59' }};
+    --color-primary-light: {{ settings.color_primary_light | default: '#78a886' }};
+    --color-background: {{ settings.background_color | default: '#faf6f0' }};
+    --color-foreground: {{ settings.foreground_color | default: '#2e3230' }};
+    --color-tertiary: {{ settings.color_tertiary | default: '#705c30' }};
+    --color-surface: {{ settings.color_surface | default: '#ffffff' }};
+    --color-surface-warm: {{ settings.color_surface_warm | default: '#f5f1ea' }};
+
+    --style-border-radius: {{ settings.border_radius | default: 12 }}px;
+    --style-border-radius-inputs: {{ settings.border_radius | default: 12 }}px;
+  }
+{% endstyle %}

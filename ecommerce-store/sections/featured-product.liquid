@@ -1,0 +1,69 @@
+<section class="featured-section">
+  <div class="featured-grid">
+    {% assign product = all_products[section.settings.product] %}
+    {% if product == blank %}
+      <div style="grid-column: 1/-1; text-align:center; padding:5rem 0; color:#4a4e4a;">
+        <p>Select a product in the theme editor to display here.</p>
+      </div>
+    {% else %}
+      <div class="featured-img">
+        {% if product.featured_media %}
+          <img src="{{ product.featured_media | image_url: width: 1024 }}" alt="{{ product.title | escape }}" loading="lazy" style="width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+        {% else %}
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#4a4e4a;">No image</div>
+        {% endif %}
+
+      </div>
+
+      <div class="featured-details">
+        <div>
+          <span class="badge badge-amber">{{ section.settings.badge_text }}</span>
+        </div>
+
+
+        <h2>{{ product.title }}</h2>
+        <div class="featured-price-wrapper" style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+          {% if product.compare_at_price > product.price %}
+            <s style="color: #a0a49c; font-size: 1.1rem;">{{ product.compare_at_price | money }}</s>
+            <span class="featured-price" style="color: var(--color-primary); font-weight: 700; font-size: 1.25rem;">{{ product.price | money }}</span>
+          {% else %}
+            <p class="featured-price" style="margin-bottom: 0; font-weight: 600; font-size: 1.25rem;">{{ product.price | money }}</p>
+          {% endif %}
+        </div>
+        <p class="featured-desc">{{ product.description | strip_html | truncatewords: 40 }}</p>
+        
+        <form method="post" action="/cart/add" data-ajax-cart="true" style="margin-top:0.5rem">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          <div class="atc-row">
+            <div class="qty-selector">
+              <button type="button" onclick="this.nextElementSibling.stepDown()"><span class="material-symbols-outlined">remove</span></button>
+              <input type="number" name="quantity" value="1" min="1">
+              <button type="button" onclick="this.previousElementSibling.stepUp()"><span class="material-symbols-outlined">add</span></button>
+            </div>
+            <button type="submit" name="add" class="btn-primary">
+              Add to Cart
+              <span class="material-symbols-outlined">shopping_bag</span>
+            </button>
+          </div>
+        </form>
+        
+        <a href="{{ product.url }}" style="color:var(--color-primary);font-weight:600;display:inline-flex;align-items:center;gap:0.25rem;margin-top:0.5rem;transition:gap 0.2s" onmouseover="this.style.gap='0.5rem'" onmouseout="this.style.gap='0.25rem'">
+          View full details <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "Best Seller" },
+    { "type": "text", "id": "review_text", "label": "Review Text", "default": "(128 Reviews)" },
+
+  ],
+  "presets": [{ "name": "Featured Product", "category": "Product" }]
+}
+{% endschema %}

@@ -1,0 +1,93 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge_text": "100% Natural & Organic",
+        "heading_line1": "Nature's Answer",
+        "heading_line2": "to Pain",
+        "subtitle": "Handcrafted herbal relief oil, rooted in ancient wisdom. Soothe tired muscles and ease daily tension with the power of nature.",
+        "cta_text": "Shop Now",
+        "cta_url": "/collections/all"
+      }
+    },
+    "trust_bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "b1": { "type": "trust_item", "settings": { "icon": "eco", "title": "100% Natural", "description": "Pure plant-based formula" } },
+        "b2": { "type": "trust_item", "settings": { "icon": "speed", "title": "Fast Absorbing", "description": "Quick penetrating relief" } },
+        "b3": { "type": "trust_item", "settings": { "icon": "cruelty_free", "title": "Cruelty Free", "description": "Never tested on animals" } },
+        "b4": { "type": "trust_item", "settings": { "icon": "front_hand", "title": "Handcrafted", "description": "Small batch artisan quality" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "featured_products_grid": {
+      "type": "featured-products-grid",
+      "settings": {
+        "heading": ""
+      },
+      "blocks": {
+        "prod1": {
+          "type": "product",
+          "settings": {
+            "button_text": "QUICK ADD"
+          }
+        },
+        "prod2": {
+          "type": "product",
+          "settings": {
+            "button_text": "ADD TO CART"
+          }
+        }
+      },
+      "block_order": ["prod1", "prod2"]
+    },
+    "benefits": {
+      "type": "benefits-grid",
+      "settings": {
+        "heading": "Why Nature Heals?",
+        "subheading": "Crafted with care, backed by nature."
+      },
+      "blocks": {
+        "c1": { "type": "benefit", "settings": { "icon": "eco", "title": "100% Natural", "description": "Pure plant-based ingredients sourced from organic farms." } },
+        "c2": { "type": "benefit", "settings": { "icon": "spa", "title": "Fast Relief", "description": "Deeply penetrating formula absorbs quickly into skin." } },
+        "c3": { "type": "benefit", "settings": { "icon": "cruelty_free", "title": "Cruelty Free", "description": "Never tested on animals. Vegan and ethically produced." } },
+        "c4": { "type": "benefit", "settings": { "icon": "local_florist", "title": "Earthy Scent", "description": "Warming arnica and cooling peppermint aroma." } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "badge_text": "Loved by Thousands",
+        "heading": "What Our Customers Say",
+        "subheading": "Real stories from real people finding natural relief."
+      },
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "rating": 5, "quote": "This oil has changed my life. I use it every night after work and the relief is immediate and lasting.", "author": "Sarah M." } },
+        "t2": { "type": "testimonial", "settings": { "rating": 5, "quote": "As a yoga instructor, I need something natural and effective. Nature Heals is the only oil I trust.", "author": "James K." } },
+        "t3": { "type": "testimonial", "settings": { "rating": 4, "quote": "The earthy scent is so calming. I apply before bed and wake up feeling refreshed. Truly a game changer.", "author": "Priya R." } }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    },
+    "founder": {
+      "type": "founder-socials",
+      "settings": {
+        "founder_name": "Ch. Mudassir Jutt",
+        "founder_title": "Founder, Nature Heals",
+        "email": "natureheals.shopify@gmail.com",
+        "facebook_url": "https://www.facebook.com/profile.php?id=61583857445567&mibextid=ZbWKwL",
+        "instagram_url": "https://www.instagram.com/pain_go_oil70?igsh=N3o4aXU3MG50em8=",
+        "tiktok_url": "https://www.tiktok.com/@pain.goo"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust_bar",
+    "featured_products_grid",
+    "benefits",
+    "testimonials",
+    "founder"
+  ]
+}

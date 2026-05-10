@@ -1,0 +1,68 @@
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+    </div>
+    
+    <nav class="header-nav">
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+    
+    <div class="header-actions">
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" aria-label="Account">
+          <span class="material-symbols-outlined">person</span>
+        </a>
+      {% endif %}
+      
+      <button type="button" onclick="openCartDrawer()" aria-label="Cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="cart-count-badge {% if cart.item_count == 0 %}visually-hidden{% endif %}">{{ cart.item_count }}</span>
+      </button>
+      
+      <button class="mobile-menu-btn" type="button" onclick="openMobileNav()" aria-label="Menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close menu">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  {% for link in section.settings.menu.links %}
+    <a href="{{ link.url }}" onclick="closeMobileNav()">{{ link.title }}</a>
+  {% endfor %}
+</nav>
+
+<script>
+  function openMobileNav() {
+    document.getElementById('mobile-nav-overlay').classList.add('active');
+    document.getElementById('mobile-nav').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileNav() {
+    document.getElementById('mobile-nav-overlay').classList.remove('active');
+    document.getElementById('mobile-nav').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

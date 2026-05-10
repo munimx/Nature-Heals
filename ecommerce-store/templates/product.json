@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "settings": {
+        "badge_text": "Best Seller"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
